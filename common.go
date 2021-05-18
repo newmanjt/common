@@ -206,6 +206,12 @@ func LoadPage(title string, req_type string, suffix string) (*Page, error) {
 	return &Page{Title: title, Body: body, Type: req_type}, nil
 }
 
+type Page struct {
+	Title string
+	Body  []byte
+	Type  string
+}
+
 func LoadPDF(name string) (pdf []byte) {
 	pdf, err := ioutil.ReadFile("./pdfs/" + name)
 
