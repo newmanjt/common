@@ -196,6 +196,26 @@ func GetContentType(filename string) (contentType string) {
 	return
 }
 
+func LoadPage(title string, req_type string, suffix string) (*Page, error) {
+	var filename string
+	filename = title + "." + suffix
+	body, err := ioutil.ReadFile(filename)
+	if err != nil {
+		return nil, err
+	}
+	return &Page{Title: title, Body: body, Type: req_type}, nil
+}
+
+func LoadPDF(name string) (pdf []byte) {
+	pdf, err := ioutil.ReadFile("./pdfs/" + name)
+
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	return
+}
+
 func RunServer(handler func(http.ResponseWriter, *http.Request), port string) {
 	http.HandleFunc("/", handler)
 	log.Fatal(http.ListenAndServe(port, nil))
